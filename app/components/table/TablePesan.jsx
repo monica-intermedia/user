@@ -28,16 +28,14 @@ const TablePesan = () => {
   }, [user]);
 
   const handlePrint = (dataId) => {
-    const printUrl = `http://localhost:3000/pesan/${dataId}`;
+    const printUrl = `http://localhost:3001/pesan/${dataId}`;
     const printWindow = window.open(printUrl, "_blank");
 
     if (printWindow) {
-      const printCheckInterval = setInterval(() => {
-        if (printWindow.document.readyState === "complete") {
-          clearInterval(printCheckInterval);
-          printWindow.print();
-        }
-      }, 5000);
+      printWindow.onload = () => {
+        printWindow.postMessage("print", printUrl);
+      };
+      printWindow.print();
     } else {
       console.error("Failed to open the print window.");
     }
@@ -57,6 +55,7 @@ const TablePesan = () => {
               <th className="py-3 px-4 text-left">Jumlah Halaman</th>
               <th className="py-3 px-4 text-left">Jumlah Warna</th>
               <th className="py-3 px-4 text-left">Total Harga</th>
+              <th className="py-3 px-4 text-left">Tangggal</th>
               <th className="py-3 px-4 text-left">Status</th>
               <th className="py-3 px-4 text-left">Print</th>
             </tr>
@@ -72,6 +71,7 @@ const TablePesan = () => {
                 <td className="py-3 px-4">{data.koran?.halaman}</td>
                 <td className="py-3 px-4">{data.koran?.warna}</td>
                 <td className="py-3 px-4">{data.gross_amount}</td>
+                <td className="py-3 px-4">{data.createdAt.substring(0, 10)}</td>
                 <td
                   className={`py-3 px-4 ${
                     data.statusCetak === "belum-dicetak"

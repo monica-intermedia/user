@@ -63,6 +63,8 @@ const Page = () => {
 
   const { id } = useParams();
 
+  console.log(data);
+
   const fetchData = async () => {
     try {
       const response = await axios.get(

@@ -25,9 +25,6 @@ const Navbar = () => {
               <a href="#about">About</a>
             </li>
             <li className="font-medium hover:font-light">
-              <Link href="blog">Blog</Link>
-            </li>
-            <li className="font-medium hover:font-light">
               <Link href="pesan">Pesan</Link>
             </li>
             <li>
